@@ -9,18 +9,20 @@ public class Main {
 
     }
 
+    // Character 유틸 클래스 활용
     public static String invertCase(String str) {
         StringBuilder sb = new StringBuilder();
 
-        for (char c : str.toCharArray()) {
-
-            String target = String.valueOf(c);
-            if (c >= 97) {
-                sb.append(target.toUpperCase());
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if(Character.isUpperCase(c)){
+                c = Character.toLowerCase(c);
             }else {
-                sb.append(target.toLowerCase());
+                c = Character.toUpperCase(c);
             }
+            sb.append(c);
         }
+
         return sb.toString();
     }
 }
