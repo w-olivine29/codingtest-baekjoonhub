@@ -1,18 +1,19 @@
-import java.util.*;
-
+import java.util.Scanner;
 
 public class Main {
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String str = scanner.nextLine();
+        // 값을 아예 대문자로 통일해서 받아옴
+        String str = scanner.next().toUpperCase();
 
         // 알파벳 개수
-        int[] alphabetCnt = new int[26];
+        int[] alphabetCnt = new int['z' - 'a' + 1];
 
         for (int i = 0; i < str.length(); i++) {
-            // 대문자 알파벳은 65부터 시작 -> 65번 문자는 0번인덱스
-            alphabetCnt[Character.toUpperCase(str.charAt(i)) - 65]++;
+            alphabetCnt[str.charAt(i) - 'A']++;
         }
 
         System.out.println(getMaxCntAlphabet(alphabetCnt));
@@ -21,20 +22,19 @@ public class Main {
 
     private static String getMaxCntAlphabet(int[] alphabetCnt) {
 
-        int maxIdx = 0;
-        int maxCnt = 0;
-        boolean isDuplicate = false; // 최대횟수 중복여부
+        String maxCntAlphabet = "?";
+        int maxCnt = -1;
 
         for (int i = 0; i < alphabetCnt.length; i++) {
-            if(maxCnt < alphabetCnt[i]){
-                isDuplicate = false; // 중복상태에서 최대횟수가 갱신됐다면 다시 false 처리
+            if (maxCnt < alphabetCnt[i]) {
                 maxCnt = alphabetCnt[i];
-                maxIdx = i;
+                maxCntAlphabet = String.valueOf((char) ('A' + i));
+
             } else if (maxCnt == alphabetCnt[i]) {
-                isDuplicate = true;
+                maxCntAlphabet = "?";
             }
         }
 
-        return isDuplicate ? "?" : String.valueOf((char)(maxIdx + 65));
-        }
+        return maxCntAlphabet;
     }
+}
